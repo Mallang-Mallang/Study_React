@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 function InputSample() {
   const [inputs, setInputs] = useState({
     name: "",
     nickname: "",
   });
+  const nameInput = useRef();
   const { name, nickname } = inputs;
 
   const onChange = (e) => {
@@ -20,11 +21,19 @@ function InputSample() {
       name: "",
       nickname: "",
     });
+    //ref 속성이 있는 DOM에 focus
+    nameInput.current.focus();
   };
   return (
     <div>
       {/* 값이 바뀌고 input을 비우려면 value값을 설정 */}
-      <input name="name" placeholder="이름" onChange={onChange} value={name} />
+      <input
+        name="name"
+        placeholder="이름"
+        onChange={onChange}
+        value={name}
+        ref={nameInput}
+      />
       <input
         name="nickname"
         placeholder="닉네임"

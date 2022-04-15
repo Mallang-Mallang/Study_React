@@ -34,5 +34,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/Mallang-Mallang/Study_React.git",
+  "author": "Mallang-Mallang <gudwns1458@naver.com>",
+  "license": "MIT"
 }

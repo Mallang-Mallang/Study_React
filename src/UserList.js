@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { UserDispatch } from "./App";
 
-const User = React.memo(function User({ user, onRemove, onToggle }) {
+const User = React.memo(function User({ user }) {
   const { username, email, id, active } = user;
+  const dispatch = useContext(UserDispatch);
   // useEffect(() => {
   //   //컴포넌트가 마운트(처음 나타났을 때) 됐을 때 작업 처리
   //   console.log("user값이 설정됨");
@@ -23,29 +25,38 @@ const User = React.memo(function User({ user, onRemove, onToggle }) {
             cursor: "pointer",
             color: active ? "green" : "black",
           }}
-          onClick={() => onToggle(user.id)}
+          onClick={() =>
+            dispatch({
+              type: "TOGGLE_USER",
+              id,
+            })
+          }
         >
           {username}
         </b>
         &nbsp;
-        <span>{email}</span>
-        <button onClick={() => onRemove(id)}>삭제</button>
+        <span>({email})</span>
+        <button
+          onClick={() =>
+            dispatch({
+              type: "REMOVE_USER",
+              id,
+            })
+          }
+        >
+          삭제
+        </button>
       </div>
     </div>
   );
 });
 
-function UserList({ users, onRemove, onToggle }) {
+function UserList({ users }) {
   return (
     <div>
       {users.map((user) => (
         //key값을 정해줘야 렌더링 성능에 문제가 안됨. 값이 업데이트 될 때 참조를 하기 때문.
-        <User
-          user={user}
-          key={user.id}
-          onRemove={onRemove}
-          onToggle={onToggle}
-        />
+        <User user={user} key={user.id} />
       ))}
     </div>
   );
